@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Update these URLs to use a later verison
+# links were retrieved from https://github.com/InfiniTimeOrg/InfiniTime/blob/main/doc/buildAndProgram.md#dependencies
+COMPILER_URL="https://developer.arm.com/-/media/Files/downloads/gnu/14.2.rel1/binrel/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz"
+SDK_URL="https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/sdks/nrf5/binaries/nrf5sdk153059ac345.zip"
+
+
+COMPILER_FILE="${COMPILER_URL##*/}"
+COMPILER_DIR="${COMPILER_FILE%.tar.xz}"
+SDK_FILE="${SDK_URL##*/}"
+
+HL='\033[1;35m'
+NC='\033[0m'
+
+if [ ! -d comp ]; then
+	echo -e "${HL}Compiler not found, retrieving and unpacking${NC}"
+	wget "$COMPILER_URL"
+	tar -xf "$COMPILER_FILE"
+	mv "$COMPILER_DIR" comp
+	rm "$COMPILER_FILE"
+fi
+
+if [ ! -d sdk ]; then
+	echo -e "${HL}SDK not found, retrieving and unpacking${NC}"
+	wget "$SDK_URL"
+	unzip -q "$SDK_FILE"
+	mv nRF5_SDK_* sdk
+	rm "$SDK_FILE"
+fi
+
+
+cd InfiniTime
+
+echo -e "${HL}Installing required npm modules${NC}"
+if [ -d node_modules ]; then
+	rm -rf node_modules
+fi
+npm install --silent lv_font_conv
+
+echo -e "${HL}Creating virtual python environment${NC}"
+if [ -d .venv ]; then
+	rm -rf .venv
+fi
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip --quiet
+
+echo -e "${HL}Installing required python packages${NC}"
+python -m pip install wheel --quiet
+python -m pip install -r tools/mcuboot/requirements.txt --quiet
+python -m pip install adafruit-nrfutil --quiet
+python -m pip install pillow --quiet
+
+echo -e "${HL}Initialization complete${NC}"
