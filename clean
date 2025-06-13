@@ -1,0 +1,18 @@
+#!/bin/bash
+
+HL='\033[1;35m'
+NC='\033[0m'
+
+if [ -d InfiniTime/build ]; then
+	echo -e "${HL}Cleaning InfiniTime build files${NC}"
+	rm -rf InfiniTime/build
+fi
+mkdir InfiniTime/build
+
+if [ -d InfiniSim/build ]; then
+	echo -e "${HL}Cleaning InfiniSim build files${NC}"
+	rm -rf InfiniSim/build
+fi
+mkdir InfiniSim/build
+
+echo -e "${HL}Cleaning completed${NC}"
