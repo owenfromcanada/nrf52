@@ -1,0 +1,24 @@
+#!/bin/bash
+
+NUMCORES=8
+
+HL='\033[1;35m'
+NC='\033[0m'
+
+cd InfiniTime
+source .venv/bin/activate
+if [ ! -d build ]; then
+	mkdir build
+fi
+cd build
+
+echo -e "${HL}Running cmake${NC}"
+cmake -DARM_NONE_EABI_TOOLCHAIN_PATH="$PWD/../../comp" -DNRF5_SDK_PATH="$PWD/../../sdk" -DBUILD_DFU=1 -DBUILD_RESOURCES=1 -DCMAKE_RULE_MESSAGES=OFF -S ..
+
+echo -e "${HL}Compiling and linking${NC}"
+make -j$NUMCORES --quiet pinetime-mcuboot-app
+
+cp src/pinetime-mcuboot-app-dfu-* ../../
+
+echo -e "${HL}Build complete. The file pinetime-mcuboot-app-dfu-*.zip can be flashed with an${NC}"
+echo -e "${HL}over-the-air flashing tool, such as Gadgetbridge or Watchmate.${NC}"
