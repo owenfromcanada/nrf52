@@ -52,4 +52,12 @@ python -m pip install -r tools/mcuboot/requirements.txt --quiet
 python -m pip install adafruit-nrfutil --quiet
 python -m pip install pillow --quiet
 
+cd ../InfiniSim
+
+echo -e "${HL}Installing required npm modules for simulator${NC}"
+if [ -d node_modules ]; then
+	rm -rf node_modules
+fi
+npm install --silent lv_font_conv
+
 echo -e "${HL}Initialization complete${NC}"
