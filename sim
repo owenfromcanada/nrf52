@@ -1,0 +1,22 @@
+#!/bin/bash
+
+NUMCORES=8
+
+HL='\033[1;35m'
+NC='\033[0m'
+
+cd InfiniSim
+source ../InfiniTime/.venv/bin/activate
+
+echo -e "${HL}Running cmake${NC}"
+cmake -DARM_NONE_EABI_TOOLCHAIN_PATH="$PWD/../comp" -DNRF5_SDK_PATH="$PWD/../sdk" -DBUILD_DFU=1 -DBUILD_RESOURCES=1 -S . -B build -DInfiniTime_DIR=../InfiniTime --log-level=WARNING
+
+echo -e "${HL}Compiling and linking${NC}"
+cmake --build build -j$NUMCORES -- --quiet
+
+cd ..
+
+echo -e "${HL}Starting simulator${NC}"
+InfiniSim/build/infinisim
+
+echo -e "${HL}Simulator closed${NC}"
