@@ -13,7 +13,7 @@ fi
 cd build
 
 echo -e "${HL}Running cmake${NC}"
-cmake -DARM_NONE_EABI_TOOLCHAIN_PATH="$PWD/../../comp" -DNRF5_SDK_PATH="$PWD/../../sdk" -DBUILD_DFU=1 -DBUILD_RESOURCES=1 -DCMAKE_RULE_MESSAGES=OFF -S ..
+cmake -DARM_NONE_EABI_TOOLCHAIN_PATH="$PWD/../../comp" -DNRF5_SDK_PATH="$PWD/../../sdk" -DBUILD_DFU=1 -DBUILD_RESOURCES=1 -S .. --log-level=WARNING
 
 echo -e "${HL}Compiling and linking${NC}"
 make -j$NUMCORES --quiet pinetime-mcuboot-app
