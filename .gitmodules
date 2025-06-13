@@ -1,0 +1,6 @@
+[submodule "InfiniTime"]
+	path = InfiniTime
+	url = https://github.com/owenfromcanada/InfiniTime.git
+[submodule "InfiniSim"]
+	path = InfiniSim
+	url = https://github.com/owenfromcanada/InfiniSim.git
