@@ -32,7 +32,7 @@ fi
 
 if [ ! -f InfiniTime/.git ] || [ ! -f InfiniTime/src/libs/lvgl/.git ]; then
 	echo -e "${HL}Submodules not found, running git${NC}"
-	git submodule init --update --recursive
+	git submodule update --init --recursive
 fi
 
 
