@@ -2,12 +2,13 @@
 
 # Update these URLs to use a later verison
 # links were retrieved from https://github.com/InfiniTimeOrg/InfiniTime/blob/main/doc/buildAndProgram.md#dependencies
-COMPILER_URL="https://developer.arm.com/-/media/Files/downloads/gnu/14.2.rel1/binrel/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz"
+#COMPILER_URL="https://developer.arm.com/-/media/Files/downloads/gnu/14.2.rel1/binrel/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz"
+COMPILER_URL="https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2"
+COMPILER_DIR="gcc-arm-none-eabi-10.3-2021.10"
 SDK_URL="https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/sdks/nrf5/binaries/nrf5sdk153059ac345.zip"
 
 
 COMPILER_FILE="${COMPILER_URL##*/}"
-COMPILER_DIR="${COMPILER_FILE%.tar.xz}"
 SDK_FILE="${SDK_URL##*/}"
 
 HL='\033[1;35m'
