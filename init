@@ -30,6 +30,11 @@ if [ ! -d sdk ]; then
 	rm "$SDK_FILE"
 fi
 
+if [ ! -f InfiniTime/.git ] || [ ! -f InfiniTime/src/libs/lvgl/.git ]; then
+	echo -e "${HL}Submodules not found, running git${NC}"
+	git submodule init --update --recursive
+fi
+
 
 cd InfiniTime
 
